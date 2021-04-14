@@ -20,7 +20,15 @@ router.get('/', (req, res) => {
     database
         .table('products as p')
         .join([ { table: 'categories as c', on: 'c.id = p.cat_id' } ])
-        .withFields([ 'c.title as category', 'p.title as name', 'p.price', 'p.quantity', 'p.image', 'p.id' ])
+        .withFields([
+            'c.title as category',
+            'p.title as name',
+            'p.price',
+            'p.description',
+            'p.quantity',
+            'p.image',
+            'p.id',
+        ])
         .slice(startValue, endValue)
         .sort({ id: 0.1 })
         .getAll()
@@ -49,6 +57,7 @@ router.get('/:productId', (req, res) => {
             'c.title as category',
             'p.title as name',
             'p.price',
+            'p.description',
             'p.quantity',
             'p.image',
             'p.images',
